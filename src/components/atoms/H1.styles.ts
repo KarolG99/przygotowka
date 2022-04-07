@@ -7,8 +7,9 @@ export const H1 = styled.h1`
   width: fit-content;
   margin: auto;
   color: ${({ theme }) => theme.colors.yellow};
+  text-align: center;
 
+  margin-bottom: 50px;
   &.register {
-    margin-bottom: 50px;
   }
 `;

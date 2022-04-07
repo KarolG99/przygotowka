@@ -10,7 +10,7 @@ interface Props {
   onChange: React.ChangeEventHandler<HTMLInputElement>;
 }
 
-const FormField = ({ id, name, placeholder, type, value, onChange }: Props) => {
+const FormField = ({ id, name, placeholder, type = "string", value, onChange }: Props) => {
   return (
     <FormFieldWrapper>
       <input

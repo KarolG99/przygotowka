@@ -1,5 +1,5 @@
 import axios from "axios";
-import React, { useContext, useState } from "react";
+import React, { useContext, useRef, useState } from "react";
 import { UserContext } from "../../../Providers/UserProvider";
 import { Button } from "../../atoms/Button.styles";
 import { H1 } from "../../atoms/H1.styles";
@@ -7,6 +7,7 @@ import { StyledLink } from "../../atoms/Link.styles";
 import Alert from "../../atoms/Warning/Alert";
 import FormField from "../../molecules/FormField/FormField";
 import { Article } from "../HomePage/HomePage.styles";
+import { IUserInfo } from "../UserProfile/UserProfile";
 
 interface IFormValues {
   username: string;
@@ -20,8 +21,11 @@ const initialFormState: IFormValues = {
 
 const LogIn = () => {
   const [formValues, setFormValues] = useState(initialFormState);
+  const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isLogIn, setIsLogIn] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [invalidLoginMessage, setInvalidLoginMessage] = useState("");
+  const submitBtnRef = useRef<HTMLButtonElement>(null);
   const { handleAddUser } = useContext(UserContext);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -31,44 +35,40 @@ const LogIn = () => {
     });
   };
 
-  const CheckUserInDB = async () => {
-    const response = await axios.get("http://localhost:8000/users");
-    const userFromDB = await response.data.filter(
-      (user: { username: string; password: string }) => {
-        if (
-          user.username === formValues.username &&
-          user.password === formValues.password
-        ) {
-          return user;
-        }
-      }
-    );
-    if (!userFromDB.length) {
-      setInvalidLoginMessage("Ups.. podałeś złe dane");
-    }
-    if (userFromDB.length) return userFromDB;
-  };
-
-  const DisplayInvalidLoginMessage = (userFromDB: {
-    username: string;
-    password: string;
-  }) => {
-
-  };
-
   const handleLogIn = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    const userFromDB = await CheckUserInDB();
 
-    if (userFromDB) {
-      DisplayInvalidLoginMessage(userFromDB);
-      console.log(userFromDB);
-      handleAddUser({
-        username: userFromDB[0].username,
-        description: userFromDB[0].description,
-        restaurantName: userFromDB[0].restaurantName,
-        id: userFromDB[0]._id,
+    const userToLogin = {
+      username: formValues.username,
+      password: formValues.password,
+    };
+
+    await axios
+      .post("http://localhost:8000/users/login", userToLogin)
+      .then((res) => {
+        setUserInfo(res.data);
+        setIsLoading(true);
+      })
+      .catch((err) => {
+        setInvalidLoginMessage("Nieprawidłowa nazwa użytkownika lub hasło");
+        console.log(err);
       });
+
+    // zalogowanie sie po zaladowaniu danych
+    if (!invalidLoginMessage) {
+      if (submitBtnRef.current) {
+        submitBtnRef.current.click();
+      }
+    }
+
+    if (userInfo) {
+      handleAddUser({
+        username: userInfo.username,
+        description: userInfo.description,
+        restaurantName: userInfo.restaurantName,
+        id: userInfo._id,
+      });
+      setIsLoading(false);
       setIsLogIn(true);
       setFormValues(initialFormState);
     }
@@ -81,7 +81,11 @@ const LogIn = () => {
           <H1>Zaloguj się</H1>
 
           <br />
-          {invalidLoginMessage && (
+          {isLoading && !invalidLoginMessage && (
+            <Alert className="success" message="Ładowanie.." />
+          )}
+
+          {invalidLoginMessage && !isLoading && (
             <Alert className="error" message={invalidLoginMessage} />
           )}
           <br />
@@ -102,7 +106,9 @@ const LogIn = () => {
             value={formValues.password}
             onChange={handleInputChange}
           />
-          <Button onClick={handleLogIn}>Zaloguj</Button>
+          <Button ref={submitBtnRef} onClick={handleLogIn}>
+            Zaloguj
+          </Button>
         </>
       ) : (
         <>
@@ -110,7 +116,9 @@ const LogIn = () => {
           <br />
           <br />
           <br />
-          <StyledLink to="/go-to">Dalej</StyledLink>
+          {userInfo && (
+            <StyledLink to={`/${userInfo._id}/profile`}>Mój profil</StyledLink>
+          )}
         </>
       )}
     </Article>

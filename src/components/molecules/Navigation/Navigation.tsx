@@ -28,13 +28,16 @@ const Navigation = ({ id }: Props) => {
           </StyledNavLink>
         </NavListItem>
         <NavListItem>
-          <StyledNavLink onClick={() => setIsOpen(false)} to={`/${id}/profile`}>
+          <StyledNavLink onClick={() => setIsOpen(false)} to={`/${id}/my-restaurants`}>
             Moje restauracje
           </StyledNavLink>
         </NavListItem>
         <NavListItem>
-          <StyledNavLink onClick={() => setIsOpen(false)} to={`/${id}/add-restaurant`}>
-            Dodaj restauracje
+          <StyledNavLink
+            onClick={() => setIsOpen(false)}
+            to={`/${id}/add-restaurant`}
+          >
+            Utwórz restauracje
           </StyledNavLink>
         </NavListItem>
       </NavList>

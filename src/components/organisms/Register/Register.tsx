@@ -26,10 +26,11 @@ const initialFormState: IFormValues = {
 
 const Register = () => {
   const [formValues, setFormValues] = useState(initialFormState);
-  const [isRegister, setIsRegister] = useState<boolean>(false);
+  const [isRegister, setIsRegister] = useState(false);
   const loginRef = useRef<HTMLAnchorElement>(null);
   const [isSuccess, setIsSuccess] = useState(false);
   const [invalidRegisterMessage, setInvalidRegisterMessage] = useState("");
+  const [isError, setIsError] = useState("");
   const { handleAddUser } = useContext(UserContext);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -41,14 +42,12 @@ const Register = () => {
 
   const CheckUsernameInDB = async () => {
     const response = await axios.get("http://localhost:8000/users");
-    const userFromDB = await response.data.map(
-      (user: { username: string; _id: string }) => {
-        if (user.username === formValues.username) {
-          setIsRegister(true);
-          return user;
-        }
+    const userFromDB = await response.data.map((user: { username: string }) => {
+      if (user.username === formValues.username) {
+        setIsRegister(true);
+        return user;
       }
-    );
+    });
     return userFromDB;
   };
 
@@ -81,7 +80,10 @@ const Register = () => {
         await axios
           .post("http://localhost:8000/users/create", newUser)
           .then((res) => console.log(res.data))
-          .catch((err) => console.log(err));
+          .catch((err) => {
+            setIsError("Coś poszło nie tak");
+            console.log(err);
+          });
 
         setFormValues(initialFormState);
         setIsSuccess(true);
@@ -99,6 +101,8 @@ const Register = () => {
     <Article>
       <H1 className="register">Rejestracja</H1>
 
+      {isError && <Alert className="warning" message={isError} />}
+
       {isRegister && (
         <>
           <Alert
@@ -109,11 +113,11 @@ const Register = () => {
         </>
       )}
 
-      {invalidRegisterMessage && !isRegister && (
+      {invalidRegisterMessage && !isRegister && !isError && (
         <Alert className="error" message={invalidRegisterMessage} />
       )}
 
-      {isSuccess && !isRegister && (
+      {isSuccess && !isRegister && !isError && (
         <>
           <Alert
             className="success"

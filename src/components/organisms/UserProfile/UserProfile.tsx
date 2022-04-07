@@ -7,14 +7,13 @@ import UserInfo from "../../molecules/UserInfo/UserInfo";
 import { Article } from "../HomePage/HomePage.styles";
 
 export interface IUserInfo {
-  username?: string;
-  description?: string;
-  restaurantName?: string;
+  username: string;
+  description: string;
+  restaurantName: string;
   _id: string;
-}
-
-interface ILogOut {
-  id: string;
+  favRestaurants?: {
+    name: string;
+  }[];
 }
 
 const UserProfile = () => {
@@ -36,7 +35,7 @@ const UserProfile = () => {
         });
       })
       .catch((err) => console.log(err));
-    }, [id]);
+  }, [id]);
 
   return (
     <>
