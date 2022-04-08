@@ -2,24 +2,21 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { H1 } from "../../atoms/H1.styles";
+import FavRestaurants from "../../molecules/FavRestaurants/FavRestaurants";
 import Navigation from "../../molecules/Navigation/Navigation";
 import { Article } from "../HomePage/HomePage.styles";
 import { IUserInfo } from "../UserProfile/UserProfile";
 
-interface IRestaurantsInfo {
+export interface IRestaurantsInfo {
   name: string;
-  _id?: string;
+  _id: string;
 }
 
 const UsersFavRestaurants = () => {
   let { id } = useParams();
   const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const [allRestaurantInfo, setAllRestaurantInfo] = useState<
-    IRestaurantsInfo[]
-  >([]);
-  const allRestaurants: string[] = [];
-  const favRestaurants: string[] = [];
+  const [favRestaurants, setFavRestaurants] = useState<IRestaurantsInfo[]>();
 
   useEffect(() => {
     axios
@@ -38,37 +35,14 @@ const UsersFavRestaurants = () => {
       .catch((err) => console.log(err));
 
     axios
-      .get("http://localhost:8000/restaurants")
+      .get(`http://localhost:8000/users/${id}/fav-restaurants`)
       .then((res) => res.data)
       .then((data) => {
-        setAllRestaurantInfo(data);
+        setFavRestaurants(data);
+        setIsDataLoaded(true);
       })
       .catch((err) => console.log(err));
-
-    if (userInfo) {
-      userInfo.favRestaurants?.map((restautant) => {});
-    }
   }, [id]);
-
-  if (allRestaurantInfo) {
-    allRestaurantInfo.map((restaurant, index) => {
-      allRestaurants.push(restaurant.name);
-    });
-  }
-
-  if (userInfo) {
-    userInfo?.favRestaurants?.map((restaurant) => {
-      favRestaurants.push(restaurant.name);
-    });
-  }
-
-  allRestaurants.map((name, index) => {
-    const actualFavRestaurants = favRestaurants.filter((favName) =>  favName === name )
-    console.log(actualFavRestaurants)
-  })
-
-  console.log(userInfo)
-
 
   return (
     <>
@@ -78,14 +52,14 @@ const UsersFavRestaurants = () => {
         </Article>
       )}
 
-      {userInfo && isDataLoaded && allRestaurants && (
+      {isDataLoaded && favRestaurants && userInfo && (
         <>
           <Navigation id={userInfo?._id} />
 
           <Article>
             <H1>Moje restauracje</H1>
-            {favRestaurants.map((restaurantName, index) => (
-              <h2 key={index}>{restaurantName}</h2>
+            {favRestaurants.map((restaurant) => (
+                <FavRestaurants key={restaurant._id} name={restaurant.name} _id={restaurant._id} />
             ))}
           </Article>
         </>

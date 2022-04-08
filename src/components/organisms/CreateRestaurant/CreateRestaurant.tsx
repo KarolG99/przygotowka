@@ -92,9 +92,7 @@ const AddRestaurant = () => {
 
       await axios
         .post(`http://localhost:8000/users/${id}/add-fav-restaurant`, {
-          favRestaurants: {
-            name: newRestaurant.name,
-          },
+          favRestaurants: newRestaurant,
         })
         .then((res) => console.log(res.data))
         .catch((err) => console.log(err));
