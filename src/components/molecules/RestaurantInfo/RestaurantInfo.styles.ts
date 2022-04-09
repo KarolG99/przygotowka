@@ -24,4 +24,9 @@ export const Task = styled(Wrapper)`
   .description {
     font-weight: 300;
   }
+
+  .username {
+    color: ${({ theme }) => theme.colors.grey};
+    font-weight: 400;
+  }
 `;

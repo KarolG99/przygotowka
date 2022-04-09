@@ -152,6 +152,9 @@ const AddRestaurant = () => {
               onChange={handleInputChange}
             />
             <Button onClick={handleSubmit}>Dodaj</Button>
+
+            <H1 className="add-restaurant">Dodaj restauracje</H1>
+
           </Article>
         </>
       )}

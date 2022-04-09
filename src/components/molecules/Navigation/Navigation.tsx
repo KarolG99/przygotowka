@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AddIcon } from "../../atoms/Icons.styles";
+import { AddIcon, HeartIcon, UserIcon } from "../../atoms/Icons.styles";
 import {
   Nav,
   NavButton,
@@ -26,7 +26,7 @@ const Navigation = ({ id }: Props) => {
       <NavList>
         <NavListItem>
           <StyledNavLink onClick={() => setIsOpen(false)} to={`/${id}/profile`}>
-            Mój profil
+            <UserIcon /> Mój profil
           </StyledNavLink>
         </NavListItem>
 
@@ -35,7 +35,7 @@ const Navigation = ({ id }: Props) => {
             onClick={() => setIsOpen(false)}
             to={`/${id}/my-restaurants`}
           >
-            Moje restauracje
+            <HeartIcon />  Moje restauracje
           </StyledNavLink>
         </NavListItem>
 
@@ -44,7 +44,7 @@ const Navigation = ({ id }: Props) => {
             onClick={() => setIsOpen(false)}
             to={`/${id}/add-restaurant`}
           >
-            <AddIcon /> Utwórz restauracje
+            <AddIcon /> Dodaj restauracje
           </StyledNavLink>
         </NavListItem>
       </NavList>

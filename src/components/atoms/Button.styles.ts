@@ -13,4 +13,8 @@ export const Button = styled.button`
   -webkit-box-shadow: 8px 8px 24px 0px rgba(255, 233, 180, 1);
   -moz-box-shadow: 8px 8px 24px 0px rgba(255, 233, 180, 1);
   box-shadow: 8px 8px 24px 0px rgba(255, 233, 180, 1);
+
+  &.add-task {
+    border-radius: 10px;
+  }
 `;

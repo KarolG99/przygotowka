@@ -1,32 +1,27 @@
 import React from "react";
-import { Id } from "../../atoms/Id.styles";
 import { NoContent } from "../../atoms/NoContent.styles";
-import { Username } from "../../atoms/username.styles";
 import { Task } from "./RestaurantInfo.styles";
 
 interface Props {
-  _id: string;
-  name: string;
   tasks: [];
+  username: string;
 }
 
-interface ITask {
+export interface ITask {
+  username?: string;
   title: string;
   category: string;
   description: string;
-  _id: string;
+  _id?: string;
 }
 
-const RestaurantInfo = ({ _id, name, tasks }: Props) => {
+const RestaurantInfo = ({ tasks, username }: Props) => {
   return (
     <>
-      <Username className="restaurant-name">{name}</Username>
-      <h4>
-        ID: <Id>{_id}</Id>
-      </h4>
       {tasks.length ? (
         tasks.map((task: ITask) => (
           <Task className="fav-restaurants" key={task._id}>
+            <h4 className="username">{username}</h4>
             <h4 className="title">{task.title}</h4>
             <h4 className="category">{task.category}</h4>
             <p className="description">{task.description}</p>

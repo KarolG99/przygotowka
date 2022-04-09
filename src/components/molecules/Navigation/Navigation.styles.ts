@@ -53,6 +53,8 @@ export const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: ${({ theme }) => theme.colors.white};
   font-weight: 700;
+  display: flex;
+  align-items: center;
 `;
 
 

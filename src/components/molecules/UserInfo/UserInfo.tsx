@@ -10,10 +10,10 @@ const UserInfo = ({ username, description, restaurantName }: IUserInfo) => {
       <Username>{username}</Username>
       <UserInfoWrapper>
         <Description>
-          <span>Opis: </span> {description}
+          <span>Opis: </span> {description ? description : "-"}
         </Description>
         <Description>
-          <span>Restauracja:</span> {restaurantName}
+          <span>Restauracja:</span> {restaurantName ? restaurantName : "-"}
         </Description>
       </UserInfoWrapper>
     </>
