@@ -17,6 +17,7 @@ export const Nav = styled.nav`
   position: fixed;
   right: 0;
   bottom: 50px;
+  border-radius: 7px 0 0 0;
   transition: transform 0.5s ease-in-out;
   transform: translateX(${({ isOpen }: Props) => (isOpen ? "0" : "100%")});
   -webkit-box-shadow: 7px 3px 24px 0px rgba(255, 235, 169, 1);
@@ -25,7 +26,7 @@ export const Nav = styled.nav`
 `;
 
 export const NavList = styled.ul`
-  padding: 0;
+  padding: 0px 10px;
   list-style: none;
 `;
 
@@ -41,6 +42,7 @@ export const NavButton = styled.button`
   position: absolute;
   bottom: 0;
   left: -50px;
+  border-radius: 7px 0 0 7px;
   cursor: pointer;
   -webkit-box-shadow: -12px 8px 24px 0px rgba(255, 235, 169, 1);
   -moz-box-shadow: -12px 8px 24px 0px rgba(255, 235, 169, 1);
@@ -52,3 +54,5 @@ export const StyledNavLink = styled(NavLink)`
   color: ${({ theme }) => theme.colors.white};
   font-weight: 700;
 `;
+
+

@@ -2,7 +2,9 @@ import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { H1 } from "../../atoms/H1.styles";
-import FavRestaurants from "../../molecules/FavRestaurants/FavRestaurants";
+import { ArrowIcon, LinkWithIcon } from "../../atoms/Icons.styles";
+import { NoContent } from "../../atoms/NoContent.styles";
+import FavRestaurant from "../../molecules/FavRestaurant/FavRestaurant";
 import Navigation from "../../molecules/Navigation/Navigation";
 import { Article } from "../HomePage/HomePage.styles";
 import { IUserInfo } from "../UserProfile/UserProfile";
@@ -58,9 +60,25 @@ const UsersFavRestaurants = () => {
 
           <Article>
             <H1>Moje restauracje</H1>
-            {favRestaurants.map((restaurant) => (
-                <FavRestaurants key={restaurant._id} name={restaurant.name} _id={restaurant._id} />
-            ))}
+            {favRestaurants.length ? (
+              favRestaurants.map((restaurant) => (
+                <React.Fragment key={restaurant._id}>
+                  <FavRestaurant
+                    key={restaurant._id}
+                    name={restaurant.name}
+                    _id={restaurant._id}
+                  >
+                    <LinkWithIcon
+                      to={`/${userInfo?._id}/my-restaurants/${restaurant._id}`}
+                    >
+                      <ArrowIcon />
+                    </LinkWithIcon>
+                  </FavRestaurant>
+                </React.Fragment>
+              ))
+            ) : (
+              <NoContent>Nie masz żadnych restauracji</NoContent>
+            )}
           </Article>
         </>
       )}

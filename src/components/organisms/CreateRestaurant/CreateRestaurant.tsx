@@ -53,55 +53,42 @@ const AddRestaurant = () => {
     });
   };
 
-  const CheckRestaurantNameInDB = async () => {
-    const response = await axios.get("http://localhost:8000/restaurants");
-    const RestaurantFromDB = await response.data.map(
-      (restaurant: { name: string }) => {
-        if (restaurant.name === formValues.name) {
-          setIsRegister(true);
-          return restaurant;
-        }
-      }
-    );
-    return RestaurantFromDB;
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    await CheckRestaurantNameInDB();
-    if (isRegister) {
-      setIsRegister(false);
-      return;
-    } else if (
-      formValues.name.length >= 2 &&
-      formValues.password.length >= 8 &&
-      formValues.password === formValues.repeatedPassword
-    ) {
-      const newRestaurant = {
-        name: formValues.name,
-        password: formValues.password,
-      };
-      await axios
-        .post("http://localhost:8000/restaurants/create", newRestaurant)
-        .then((res) => {
-          console.log(res.data);
-          setFormValues(initialFormState);
-          setIsSuccess(true);
-        })
-        .catch((err) => console.log(err));
 
-      await axios
-        .post(`http://localhost:8000/users/${id}/add-fav-restaurant`, {
-          favRestaurants: newRestaurant,
-        })
-        .then((res) => console.log(res.data))
-        .catch((err) => console.log(err));
-    } else if (formValues.name.length < 2) {
+    if (formValues.name.length < 2) {
       setInvalidRestaurantMessage("Nazwa jest za krótka");
     } else if (formValues.password.length < 8) {
       setInvalidRestaurantMessage("Hasło musi być dłuższe");
     } else if (formValues.password !== formValues.repeatedPassword) {
       setInvalidRestaurantMessage("Hasła muszą być takie same");
+    } else {
+      const newRestaurant = {
+        name: formValues.name,
+        password: formValues.password,
+      };
+
+      if (newRestaurant) {
+        await axios
+          .post("http://localhost:8000/restaurants/create", newRestaurant)
+          .then((res) => {
+            console.log(res.data);
+            setFormValues(initialFormState);
+            setIsSuccess(true);
+          })
+          .then(() => {
+            axios
+              .post(`http://localhost:8000/users/${id}/add-fav-restaurant`, {
+                favRestaurants: newRestaurant,
+              })
+              .then((res) => console.log(res.data))
+              .catch((err) => console.log(err));
+          })
+          .catch((err) => {
+            setInvalidRestaurantMessage("Taka restauracja już istnieje");
+            console.log(err);
+          });
+      }
     }
   };
 

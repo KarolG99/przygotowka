@@ -13,4 +13,14 @@ export const Username = styled.h2`
     height: 8px;
     background-color: ${({ theme }) => theme.colors.yellow};
   }
+
+  &.restaurant-name {
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-size: 30px;
+
+    &::after {
+      height: 12px;
+    }
+  }
 `;
