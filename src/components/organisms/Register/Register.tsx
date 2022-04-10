@@ -42,7 +42,7 @@ const Register = () => {
 
   const CheckUsernameInDB = async () => {
     const response = await axios.get("http://localhost:8000/users");
-    const userFromDB = await response.data.map((user: { username: string }) => {
+    const userFromDB = await response.data.forEach((user: { username: string }) => {
       if (user.username === formValues.username) {
         setIsRegister(true);
         return user;

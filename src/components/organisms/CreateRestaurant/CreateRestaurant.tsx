@@ -24,14 +24,24 @@ const initialFormState: IInitialFormState = {
   repeatedPassword: "",
 };
 
+interface IInitialFormIDState {
+  id: string;
+}
+
+const initialFormIDState: IInitialFormIDState = {
+  id: "",
+};
+
 const AddRestaurant = () => {
   const { id } = useParams();
   const [userID, setUserID] = useState<IUserID>();
   const [isDataLoaded, setIsDataLoaded] = useState(false);
-  const [isRegister, setIsRegister] = useState(false);
   const [isSuccess, setIsSuccess] = useState(false);
   const [invalidRestaurantMessage, setInvalidRestaurantMessage] = useState("");
+  const [isAddedByIdMsg, setIsAddedByIdMsg] = useState("");
+  const [isNotAddedByIdMsg, setIsNotAddedByIdMsg] = useState("");
   const [formValues, setFormValues] = useState(initialFormState);
+  const [formIdValue, setFormIdValue] = useState(initialFormIDState);
 
   useEffect(() => {
     axios
@@ -49,6 +59,10 @@ const AddRestaurant = () => {
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues({
       ...formValues,
+      [e.target.name]: e.target.value,
+    });
+    setFormIdValue({
+      ...formIdValue,
       [e.target.name]: e.target.value,
     });
   };
@@ -72,7 +86,6 @@ const AddRestaurant = () => {
         await axios
           .post("http://localhost:8000/restaurants/create", newRestaurant)
           .then((res) => {
-            console.log(res.data);
             setFormValues(initialFormState);
             setIsSuccess(true);
           })
@@ -92,6 +105,25 @@ const AddRestaurant = () => {
     }
   };
 
+  const handleAddById = async (e: React.FormEvent<HTMLButtonElement>) => {
+    if (!formIdValue.id.length) {
+    } else {
+      const NewID = {
+        id: formIdValue.id,
+      };
+
+      if (NewID) {
+        await axios
+          .post(`http://localhost:8000/users/${id}/add-restaurant-by-id`, NewID)
+          .then((res) => {
+            setFormIdValue(initialFormIDState);
+            setIsAddedByIdMsg("Dodano!");
+          })
+          .catch((err) => setIsNotAddedByIdMsg("Coś poszło nie tak"));
+      }
+    }
+  };
+
   return (
     <>
       {!isDataLoaded && (
@@ -106,20 +138,12 @@ const AddRestaurant = () => {
           <Article>
             <H1>Utwórz restauracje</H1>
 
-            {isRegister && (
-              <>
-                <Alert
-                  className="warning"
-                  message={"⚠️ Taka nazwa restauracji już istnieje"}
-                />
-              </>
-            )}
 
-            {invalidRestaurantMessage && !isRegister && (
+            {invalidRestaurantMessage && (
               <Alert className="error" message={invalidRestaurantMessage} />
             )}
 
-            {isSuccess && !isRegister && (
+            {isSuccess && !invalidRestaurantMessage && (
               <>
                 <Alert
                   className="success"
@@ -151,10 +175,26 @@ const AddRestaurant = () => {
               value={formValues.repeatedPassword}
               onChange={handleInputChange}
             />
-            <Button onClick={handleSubmit}>Dodaj</Button>
+            <Button onClick={handleSubmit}>Utwórz</Button>
 
             <H1 className="add-restaurant">Dodaj restauracje</H1>
 
+            {isAddedByIdMsg && (
+              <Alert className="success" message={isAddedByIdMsg} />
+            )}
+
+            {isNotAddedByIdMsg && (
+              <Alert className="warning" message={isNotAddedByIdMsg} />
+            )}
+
+            <FormField
+              id="id"
+              name="id"
+              placeholder="id restauracji"
+              value={formIdValue.id}
+              onChange={handleInputChange}
+            />
+            <Button onClick={handleAddById}>Dodaj</Button>
           </Article>
         </>
       )}

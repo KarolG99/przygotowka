@@ -177,7 +177,7 @@ const RestaurantProfile = () => {
 
             <RestaurantInfo
               tasks={restaurantInfo.tasks}
-              username={userInfo.username}
+              restaurantID={restaurantInfo._id}
             />
           </Article>
         </>

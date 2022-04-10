@@ -3,6 +3,8 @@ import { ReactComponent as Add } from "../../assets/icons/add.svg";
 import { ReactComponent as Arrow } from "../../assets/icons/arrow.svg";
 import { ReactComponent as Heart } from "../../assets/icons/heart.svg";
 import { ReactComponent as User } from "../../assets/icons/user.svg";
+import { ReactComponent as Done } from "../../assets/icons/done.svg";
+import { ReactComponent as Logout } from "../../assets/icons/logout.svg";
 import { StyledLink } from "./Link.styles";
 
 export const LinkWithIcon = styled(StyledLink)`
@@ -33,13 +35,27 @@ export const ArrowIcon = styled(Arrow)`
 `;
 
 export const HeartIcon = styled(Heart)`
-fill: ${({ theme }) => theme.colors.white};
+  fill: ${({ theme }) => theme.colors.white};
   width: 14px;
   height: 14px;
   margin-right: 5px;
 `;
 
 export const UserIcon = styled(User)`
+  fill: ${({ theme }) => theme.colors.white};
+  width: 14px;
+  height: 14px;
+  margin-right: 5px;
+`;
+
+export const DoneIcon = styled(Done)`
+  fill: ${({ theme }) => theme.colors.green};
+  width: 20px;
+  height: 20px;
+  margin: 5px;
+`;
+
+export const LogoutIcon = styled(Logout)`
   fill: ${({ theme }) => theme.colors.white};
   width: 14px;
   height: 14px;

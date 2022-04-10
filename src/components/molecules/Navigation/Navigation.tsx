@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { AddIcon, HeartIcon, UserIcon } from "../../atoms/Icons.styles";
+import { AddIcon, HeartIcon, LogoutIcon, UserIcon } from "../../atoms/Icons.styles";
 import {
   Nav,
   NavButton,
@@ -45,6 +45,15 @@ const Navigation = ({ id }: Props) => {
             to={`/${id}/add-restaurant`}
           >
             <AddIcon /> Dodaj restauracje
+          </StyledNavLink>
+        </NavListItem>
+
+        <NavListItem>
+          <StyledNavLink
+            onClick={() => setIsOpen(false)}
+            to={`/`}
+          >
+            <LogoutIcon /> Wyloguj
           </StyledNavLink>
         </NavListItem>
       </NavList>

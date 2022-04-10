@@ -48,40 +48,43 @@ const UsersFavRestaurants = () => {
 
   return (
     <>
-      {!isDataLoaded && (
-        <Article>
-          <h2>Ładowanie...</h2>
-        </Article>
-      )}
+      {userInfo && <Navigation id={userInfo?._id} />}
 
-      {isDataLoaded && favRestaurants && userInfo && (
-        <>
-          <Navigation id={userInfo?._id} />
+      <Article>
+        {!isDataLoaded && <h2>Ładowanie...</h2>}
 
-          <Article>
+        {!favRestaurants?.length && userInfo && (
+          <>
             <H1>Moje restauracje</H1>
-            {favRestaurants.length ? (
-              favRestaurants.map((restaurant) => (
-                <React.Fragment key={restaurant._id}>
-                  <FavRestaurant
-                    key={restaurant._id}
-                    name={restaurant.name}
-                    _id={restaurant._id}
-                  >
-                    <LinkWithIcon
-                      to={`/${userInfo?._id}/my-restaurants/${restaurant._id}`}
+            <NoContent>Nie masz żadnych restauracji</NoContent>
+          </>
+        )}
+
+        {isDataLoaded && favRestaurants && userInfo && (
+          <>
+            {favRestaurants[0] && (
+              <>
+                <H1>Moje restauracje</H1>
+                {favRestaurants.map((restaurant) => (
+                  <React.Fragment key={restaurant._id}>
+                    <FavRestaurant
+                      key={restaurant._id}
+                      name={restaurant.name}
+                      _id={restaurant._id}
                     >
-                      <ArrowIcon />
-                    </LinkWithIcon>
-                  </FavRestaurant>
-                </React.Fragment>
-              ))
-            ) : (
-              <NoContent>Nie masz żadnych restauracji</NoContent>
+                      <LinkWithIcon
+                        to={`/${userInfo?._id}/my-restaurants/${restaurant._id}`}
+                      >
+                        <ArrowIcon />
+                      </LinkWithIcon>
+                    </FavRestaurant>
+                  </React.Fragment>
+                ))}
+              </>
             )}
-          </Article>
-        </>
-      )}
+          </>
+        )}
+      </Article>
     </>
   );
 };
