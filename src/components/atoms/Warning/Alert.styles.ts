@@ -5,6 +5,8 @@ export const StyledAlert = styled.h3`
   border-radius: 5px;
   margin: 10px 0 20px 0;
   font-weight: 300;
+  width: 80vw;
+  max-width: 700px;
 
   &.warning {
     background-color: ${({ theme }) => theme.colors.warning};

@@ -22,7 +22,7 @@ const UsersFavRestaurants = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/users/${id}`)
+      .get(`${process.env.REACT_APP_BASE_URL}/users/${id}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);
@@ -37,7 +37,7 @@ const UsersFavRestaurants = () => {
       .catch((err) => console.log(err));
 
     axios
-      .get(`http://localhost:8000/users/${id}/fav-restaurants`)
+      .get(`${process.env.REACT_APP_BASE_URL}/users/${id}/fav-restaurants`)
       .then((res) => res.data)
       .then((data) => {
         setFavRestaurants(data);

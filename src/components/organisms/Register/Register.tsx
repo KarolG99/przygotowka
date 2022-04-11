@@ -41,13 +41,15 @@ const Register = () => {
   };
 
   const CheckUsernameInDB = async () => {
-    const response = await axios.get("http://localhost:8000/users");
-    const userFromDB = await response.data.forEach((user: { username: string }) => {
-      if (user.username === formValues.username) {
-        setIsRegister(true);
-        return user;
+    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`);
+    const userFromDB = await response.data.forEach(
+      (user: { username: string }) => {
+        if (user.username === formValues.username) {
+          setIsRegister(true);
+          return user;
+        }
       }
-    });
+    );
     return userFromDB;
   };
 
@@ -78,7 +80,7 @@ const Register = () => {
         });
 
         await axios
-          .post("http://localhost:8000/users/create", newUser)
+          .post(`${process.env.REACT_APP_BASE_URL}/users/create`, newUser)
           .then((res) => console.log(res.data))
           .catch((err) => {
             setIsError("Coś poszło nie tak");
@@ -101,13 +103,20 @@ const Register = () => {
     <Article>
       <H1 className="register">Rejestracja</H1>
 
+      <Alert
+        className="warning"
+        message={
+          "Ważne! Aplikacja jest w wersji testowej. Zadbaj o swoje bezpieczeństwo i używaj haseł, których nigdzie nie używasz."
+        }
+      />
+
       {isError && <Alert className="warning" message={isError} />}
 
       {isRegister && (
         <>
           <Alert
             className="warning"
-            message={"⚠️ Taka nazwa użytkownika już istnieje"}
+            message={"Taka nazwa użytkownika już istnieje"}
           />
           <StyledLink to="/login">Zaloguj się</StyledLink>
         </>

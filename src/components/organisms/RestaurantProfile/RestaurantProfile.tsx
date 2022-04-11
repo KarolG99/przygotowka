@@ -39,7 +39,7 @@ const RestaurantProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/restaurants/${restaurantID}`)
+      .get(`${process.env.REACT_APP_BASE_URL}/restaurants/${restaurantID}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);
@@ -50,7 +50,7 @@ const RestaurantProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/users/${id}`)
+      .get(`${process.env.REACT_APP_BASE_URL}/users/${id}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);
@@ -98,7 +98,7 @@ const RestaurantProfile = () => {
         if (newTask) {
           await axios
             .post(
-              `http://localhost:8000/restaurants/${restaurantID}/create-task`,
+              `${process.env.REACT_APP_BASE_URL}/restaurants/${restaurantID}/create-task`,
               { tasks: newTask }
             )
             .then((res) => {

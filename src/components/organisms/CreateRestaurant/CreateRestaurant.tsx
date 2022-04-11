@@ -45,7 +45,7 @@ const AddRestaurant = () => {
 
   useEffect(() => {
     axios
-      .get(`http://localhost:8000/users/${id}`)
+      .get(`${process.env.REACT_APP_BASE_URL}/users/${id}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);
@@ -84,14 +84,14 @@ const AddRestaurant = () => {
 
       if (newRestaurant) {
         await axios
-          .post("http://localhost:8000/restaurants/create", newRestaurant)
+          .post(`${process.env.REACT_APP_BASE_URL}/restaurants/create`, newRestaurant)
           .then((res) => {
             setFormValues(initialFormState);
             setIsSuccess(true);
           })
           .then(() => {
             axios
-              .post(`http://localhost:8000/users/${id}/add-fav-restaurant`, {
+              .post(`${process.env.REACT_APP_BASE_URL}/users/${id}/add-fav-restaurant`, {
                 favRestaurants: newRestaurant,
               })
               .then((res) => console.log(res.data))
@@ -114,7 +114,7 @@ const AddRestaurant = () => {
 
       if (NewID) {
         await axios
-          .post(`http://localhost:8000/users/${id}/add-restaurant-by-id`, NewID)
+          .post(`${process.env.REACT_APP_BASE_URL}/users/${id}/add-restaurant-by-id`, NewID)
           .then((res) => {
             setFormIdValue(initialFormIDState);
             setIsAddedByIdMsg("Dodano!");

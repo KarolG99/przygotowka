@@ -44,7 +44,7 @@ const LogIn = () => {
     };
 
     await axios
-      .post("http://localhost:8000/users/login", userToLogin)
+      .post(`${process.env.REACT_APP_BASE_URL}/users/login`, userToLogin)
       .then((res) => {
         setUserInfo(res.data);
         setIsLoading(true);
