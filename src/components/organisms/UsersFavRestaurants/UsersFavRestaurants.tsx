@@ -22,7 +22,7 @@ const UsersFavRestaurants = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/users/${id}`)
+      .get(`https://przygotowka.herokuapp.com/users/${id}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);
@@ -37,7 +37,7 @@ const UsersFavRestaurants = () => {
       .catch((err) => console.log(err));
 
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/users/${id}/fav-restaurants`)
+      .get(`https://przygotowka.herokuapp.com/users/${id}/fav-restaurants`)
       .then((res) => res.data)
       .then((data) => {
         setFavRestaurants(data);

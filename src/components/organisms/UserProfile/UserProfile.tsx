@@ -23,7 +23,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/users/${id}`)
+      .get(`https://przygotowka.herokuapp.com/users/${id}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);

@@ -39,7 +39,7 @@ const RestaurantProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/restaurants/${restaurantID}`)
+      .get(`https://przygotowka.herokuapp.com/restaurants/${restaurantID}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);
@@ -50,7 +50,7 @@ const RestaurantProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/users/${id}`)
+      .get(`https://przygotowka.herokuapp.com/users/${id}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);
@@ -98,7 +98,7 @@ const RestaurantProfile = () => {
         if (newTask) {
           await axios
             .post(
-              `${process.env.REACT_APP_BASE_URL}/restaurants/${restaurantID}/create-task`,
+              `https://przygotowka.herokuapp.com/restaurants/${restaurantID}/create-task`,
               { tasks: newTask }
             )
             .then((res) => {

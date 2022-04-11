@@ -44,7 +44,7 @@ const LogIn = () => {
     };
 
     await axios
-      .post(`${process.env.REACT_APP_BASE_URL}/users/login`, userToLogin)
+      .post(`https://przygotowka.herokuapp.com/users/login`, userToLogin)
       .then((res) => {
         setUserInfo(res.data);
         setIsLoading(true);

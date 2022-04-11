@@ -45,7 +45,7 @@ const AddRestaurant = () => {
 
   useEffect(() => {
     axios
-      .get(`${process.env.REACT_APP_BASE_URL}/users/${id}`)
+      .get(`https://przygotowka.herokuapp.com/users/${id}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);
@@ -84,14 +84,14 @@ const AddRestaurant = () => {
 
       if (newRestaurant) {
         await axios
-          .post(`${process.env.REACT_APP_BASE_URL}/restaurants/create`, newRestaurant)
+          .post(`https://przygotowka.herokuapp.com/restaurants/create`, newRestaurant)
           .then((res) => {
             setFormValues(initialFormState);
             setIsSuccess(true);
           })
           .then(() => {
             axios
-              .post(`${process.env.REACT_APP_BASE_URL}/users/${id}/add-fav-restaurant`, {
+              .post(`https://przygotowka.herokuapp.com/users/${id}/add-fav-restaurant`, {
                 favRestaurants: newRestaurant,
               })
               .then((res) => console.log(res.data))
@@ -114,7 +114,7 @@ const AddRestaurant = () => {
 
       if (NewID) {
         await axios
-          .post(`${process.env.REACT_APP_BASE_URL}/users/${id}/add-restaurant-by-id`, NewID)
+          .post(`https://przygotowka.herokuapp.com/users/${id}/add-restaurant-by-id`, NewID)
           .then((res) => {
             setFormIdValue(initialFormIDState);
             setIsAddedByIdMsg("Dodano!");

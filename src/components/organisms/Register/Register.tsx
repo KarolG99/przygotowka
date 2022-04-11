@@ -41,7 +41,7 @@ const Register = () => {
   };
 
   const CheckUsernameInDB = async () => {
-    const response = await axios.get(`${process.env.REACT_APP_BASE_URL}/users`);
+    const response = await axios.get(`https://przygotowka.herokuapp.com/users`);
     const userFromDB = await response.data.forEach(
       (user: { username: string }) => {
         if (user.username === formValues.username) {
@@ -80,7 +80,7 @@ const Register = () => {
         });
 
         await axios
-          .post(`${process.env.REACT_APP_BASE_URL}/users/create`, newUser)
+          .post(`https://przygotowka.herokuapp.com/users/create`, newUser)
           .then((res) => console.log(res.data))
           .catch((err) => {
             setIsError("Coś poszło nie tak");

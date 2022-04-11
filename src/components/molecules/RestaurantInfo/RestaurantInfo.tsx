@@ -21,7 +21,7 @@ export interface ITask {
 const RestaurantInfo = ({ tasks, restaurantID}: Props) => {
 
   const handleDeleteTask = (id: any) => {
-    axios.delete(`${process.env.REACT_APP_BASE_URL}/restaurants/${restaurantID}/delete-task/${id}`)
+    axios.delete(`https://przygotowka.herokuapp.com/restaurants/${restaurantID}/delete-task/${id}`)
     .then(res => console.log(res))
     .catch(err => console.log(err))
   }
