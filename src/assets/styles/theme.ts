@@ -5,6 +5,7 @@ export const theme = {
     yellow: "#FFBC0D",
     grey: "#999999",
     green: "#00CC94",
+    red: "#FF2D34",
     warning: "rgba(255, 152, 0, 0.25)",
     success: "#dff0d8",
     error: "#FFDDDD",

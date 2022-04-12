@@ -94,7 +94,7 @@ const AddRestaurant = () => {
               .post(`https://przygotowka.herokuapp.com/users/${id}/add-fav-restaurant`, {
                 favRestaurants: newRestaurant,
               })
-              .then((res) => console.log(res.data))
+              .then(() => {})
               .catch((err) => console.log(err));
           })
           .catch((err) => {
@@ -147,7 +147,7 @@ const AddRestaurant = () => {
               <>
                 <Alert
                   className="success"
-                  message={`Zarejestrowano pomyślnie, możesz dodać restauracje w zakładce "Moje restauracje"`}
+                  message={`Zarejestrowano pomyślnie, możesz przejść do zakładki "Moje restauracje"`}
                 />
               </>
             )}

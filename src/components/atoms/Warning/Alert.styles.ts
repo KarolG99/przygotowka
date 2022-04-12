@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import { Scale } from "../../molecules/RestaurantInfo/RestaurantInfo.styles";
 
 export const StyledAlert = styled.h3`
   padding: 7px 13px;
@@ -7,6 +8,7 @@ export const StyledAlert = styled.h3`
   font-weight: 300;
   width: 80vw;
   max-width: 700px;
+  animation: ${Scale} 0.37s ease-in-out;
 
   &.warning {
     background-color: ${({ theme }) => theme.colors.warning};

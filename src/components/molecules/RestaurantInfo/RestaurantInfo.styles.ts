@@ -1,10 +1,23 @@
-import styled from "styled-components";
+import styled, { keyframes } from "styled-components";
 import { Wrapper } from "../../atoms/Wrapper.styles";
+
+export const Scale = keyframes`
+  0% {
+    transform: scale(0.7);
+    opacity: 0;
+
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+`;
 
 export const Task = styled(Wrapper)`
   padding-top: 10px;
   width: 80vw;
   max-width: 500px;
+  animation: ${Scale} 0.37s ease-in-out;
 
   -webkit-box-shadow: 0px 3px 13px -6px rgba(170, 170, 170, 1);
   -moz-box-shadow: 0px 3px 13px -6px rgba(170, 170, 170, 1);

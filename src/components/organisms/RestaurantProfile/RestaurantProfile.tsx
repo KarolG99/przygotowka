@@ -139,7 +139,7 @@ const RestaurantProfile = () => {
                 Dodaj zadanie
               </Button>
             ) : (
-              <>
+              <React.Fragment>
                 {warningMessage && (
                   <Alert className="warning" message={warningMessage} />
                 )}
@@ -172,7 +172,7 @@ const RestaurantProfile = () => {
                 <Button className="add-task" onClick={handleAddTask}>
                   <AddIcon className="add-task" />
                 </Button>
-              </>
+              </React.Fragment>
             )}
 
             <RestaurantInfo
