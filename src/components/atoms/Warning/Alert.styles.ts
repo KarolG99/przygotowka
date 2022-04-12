@@ -9,6 +9,8 @@ export const StyledAlert = styled.h3`
   width: 80vw;
   max-width: 700px;
   animation: ${Scale} 0.37s ease-in-out;
+  -webkit-animation: ${Scale} 0.37s ease-in-out;
+  -moz-animation: ${Scale} 0.37s ease-in-out;
 
   &.warning {
     background-color: ${({ theme }) => theme.colors.warning};

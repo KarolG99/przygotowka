@@ -19,6 +19,8 @@ export const Nav = styled.nav`
   bottom: 50px;
   border-radius: 7px 0 0 0;
   transition: transform 0.5s ease-in-out;
+  -webkit-transition: transform 0.5s ease-in-out;
+  -moz-transition: transform 0.5s ease-in-out;
   transform: translateX(${({ isOpen }: Props) => (isOpen ? "0" : "100%")});
   -webkit-box-shadow: 7px 3px 24px 0px rgba(255, 235, 169, 1);
   -moz-box-shadow: 7px 3px 24px 0px rgba(255, 235, 169, 1);
@@ -56,5 +58,3 @@ export const StyledNavLink = styled(NavLink)`
   display: flex;
   align-items: center;
 `;
-
-
