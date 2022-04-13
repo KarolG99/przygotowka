@@ -17,6 +17,7 @@ export const StyledModal = styled.div`
   max-height: 50vh;
   overflow: scroll;
   margin-bottom: 1.75rem;
+
   -webkit-box-shadow: 0px 20px 31px 10px rgba(170, 170, 170, 1);
   -moz-box-shadow: 0px 20px 31px 10px rgba(170, 170, 170, 1);
   box-shadow: 0px 20px 31px 10px rgba(170, 170, 170, 1);

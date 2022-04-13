@@ -1,9 +1,8 @@
 import axios from "axios";
 import React, { useState } from "react";
 import { DoneIcon } from "../../atoms/Icons.styles";
-import Modal from "../../atoms/Modal/Modal";
 import { NoContent } from "../../atoms/NoContent.styles";
-import { Task } from "./RestaurantInfo.styles";
+import { DeleteTaskInfo, Task } from "./RestaurantInfo.styles";
 
 interface Props {
   tasks: [];
@@ -19,25 +18,38 @@ export interface ITask {
 }
 
 const RestaurantInfo = ({ tasks, restaurantID }: Props) => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isHelpInfoOpen, setIsHelpInfoOpen] = useState(true);
 
   const handleDeleteTask = (id: any) => {
     axios
       .delete(
         `https://przygotowka.herokuapp.com/restaurants/${restaurantID}/delete-task/${id}`
       )
-      .then(() => setIsModalOpen(false))
+      .then(() => setIsHelpInfoOpen(false))
       .catch((err) => console.log(err));
   };
+
   return (
     <>
+      {isHelpInfoOpen && (
+        <DeleteTaskInfo>
+          {" "}
+          Naciśnij dwa razy znak ptaszka żeby usunąć zadanie{" "}
+          <button onClick={() => setIsHelpInfoOpen(false)}>𝘅</button>{" "}
+        </DeleteTaskInfo>
+      )}
+
       {tasks.length ? (
         tasks.map((task: ITask) => (
           <React.Fragment key={task._id}>
             <Task className="fav-restaurants">
               <div className="username-doneIcon">
                 <h4 className="username">{task.username}</h4>
-                <button onClick={() => setIsModalOpen(true)}>
+                <button
+                  onDoubleClick={() => {
+                    handleDeleteTask(task._id);
+                  }}
+                >
                   <DoneIcon />
                 </button>
               </div>
@@ -45,13 +57,6 @@ const RestaurantInfo = ({ tasks, restaurantID }: Props) => {
               <h4 className="category">{task.category}</h4>
               <p className="description">{task.description}</p>
             </Task>
-
-            {isModalOpen && (
-              <Modal
-                onClickNo={() => setIsModalOpen(false)}
-                onClickYes={() => handleDeleteTask(task._id)}
-              />
-            )}
           </React.Fragment>
         ))
       ) : (

@@ -9,6 +9,7 @@ export const theme = {
     warning: "rgba(255, 152, 0, 0.25)",
     success: "#dff0d8",
     error: "#FFDDDD",
+    info: "#FFEDCB",
   },
   fontSize: {
     h1: "44px",

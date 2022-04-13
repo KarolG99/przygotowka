@@ -19,6 +19,29 @@ export const Scale = keyframes`
   }
 `;
 
+export const DeleteTaskInfo = styled.p`
+  background-color: ${({ theme }) => theme.colors.info};
+  margin: 7px;
+  padding: 5px 10px;
+  border-radius: 10px;
+  color: ${({ theme }) => theme.colors.black};
+  font-weight: 300;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  button {
+    padding: 1px 10px;
+    margin-left: 10px;
+    font-size: 16px;
+    color: ${({ theme }) => theme.colors.black};
+    border: none;
+    border-radius: 5px;
+    background-color: white;
+    cursor: pointer;
+  }
+`;
+
 export const Task = styled(Wrapper)`
   padding-top: 10px;
   width: 80vw;
