@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { URL } from "../../../apiurl";
 import { Button } from "../../atoms/Button.styles";
 import { H1 } from "../../atoms/H1.styles";
 import { AddIcon } from "../../atoms/Icons.styles";
@@ -39,7 +40,7 @@ const RestaurantProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`https://przygotowka.herokuapp.com/restaurants/${restaurantID}`)
+      .get(`${URL}/restaurants/${restaurantID}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);
@@ -50,7 +51,7 @@ const RestaurantProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`https://przygotowka.herokuapp.com/users/${id}`)
+      .get(`${URL}/users/${id}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);
@@ -98,7 +99,7 @@ const RestaurantProfile = () => {
         if (newTask) {
           await axios
             .post(
-              `https://przygotowka.herokuapp.com/restaurants/${restaurantID}/create-task`,
+              `${URL}/restaurants/${restaurantID}/create-task`,
               { tasks: newTask }
             )
             .then((res) => {

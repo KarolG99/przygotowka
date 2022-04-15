@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
+import { URL } from "../../../apiurl";
 import { UserContext } from "../../../Providers/UserProvider";
 import { Button } from "../../atoms/Button.styles";
 import { H1 } from "../../atoms/H1.styles";
@@ -44,7 +45,7 @@ const LogIn = () => {
     };
 
     await axios
-      .post(`https://przygotowka.herokuapp.com/users/login`, userToLogin)
+      .post(`${URL}/users/login`, userToLogin)
       .then((res) => {
         setUserInfo(res.data);
         setIsLoading(true);

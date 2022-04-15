@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { URL } from "../../../apiurl";
 import { Button } from "../../atoms/Button.styles";
 import { H1 } from "../../atoms/H1.styles";
 import Alert from "../../atoms/Warning/Alert";
@@ -45,7 +46,7 @@ const AddRestaurant = () => {
 
   useEffect(() => {
     axios
-      .get(`https://przygotowka.herokuapp.com/users/${id}`)
+      .get(`${URL}/users/${id}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);
@@ -84,14 +85,14 @@ const AddRestaurant = () => {
 
       if (newRestaurant) {
         await axios
-          .post(`https://przygotowka.herokuapp.com/restaurants/create`, newRestaurant)
+          .post(`${URL}/restaurants/create`, newRestaurant)
           .then((res) => {
             setFormValues(initialFormState);
             setIsSuccess(true);
           })
           .then(() => {
             axios
-              .post(`https://przygotowka.herokuapp.com/users/${id}/add-fav-restaurant`, {
+              .post(`${URL}/users/${id}/add-fav-restaurant`, {
                 favRestaurants: newRestaurant,
               })
               .then(() => {})
@@ -114,7 +115,7 @@ const AddRestaurant = () => {
 
       if (NewID) {
         await axios
-          .post(`https://przygotowka.herokuapp.com/users/${id}/add-restaurant-by-id`, NewID)
+          .post(`${URL}/users/${id}/add-restaurant-by-id`, NewID)
           .then((res) => {
             setFormIdValue(initialFormIDState);
             setIsAddedByIdMsg("Dodano!");

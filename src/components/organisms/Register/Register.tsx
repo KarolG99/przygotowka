@@ -1,5 +1,6 @@
 import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
+import { URL } from "../../../apiurl";
 import { UserContext } from "../../../Providers/UserProvider";
 import { Button } from "../../atoms/Button.styles";
 import { H1 } from "../../atoms/H1.styles";
@@ -41,7 +42,7 @@ const Register = () => {
   };
 
   const CheckUsernameInDB = async () => {
-    const response = await axios.get(`https://przygotowka.herokuapp.com/users`);
+    const response = await axios.get(`${URL}/users`);
     const userFromDB = await response.data.forEach(
       (user: { username: string }) => {
         if (user.username === formValues.username) {
@@ -80,7 +81,7 @@ const Register = () => {
         });
 
         await axios
-          .post(`https://przygotowka.herokuapp.com/users/create`, newUser)
+          .post(`${URL}/users/create`, newUser)
           .then((res) => console.log(res.data))
           .catch((err) => {
             setIsError("Coś poszło nie tak");

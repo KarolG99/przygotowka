@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { URL } from "../../../apiurl";
 import { H1 } from "../../atoms/H1.styles";
 import { ArrowIcon, LinkWithIcon } from "../../atoms/Icons.styles";
 import { NoContent } from "../../atoms/NoContent.styles";
@@ -22,7 +23,7 @@ const UsersFavRestaurants = () => {
 
   useEffect(() => {
     axios
-      .get(`https://przygotowka.herokuapp.com/users/${id}`)
+      .get(`${URL}/users/${id}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);
@@ -37,7 +38,7 @@ const UsersFavRestaurants = () => {
       .catch((err) => console.log(err));
 
     axios
-      .get(`https://przygotowka.herokuapp.com/users/${id}/fav-restaurants`)
+      .get(`${URL}/users/${id}/fav-restaurants`)
       .then((res) => res.data)
       .then((data) => {
         setFavRestaurants(data);

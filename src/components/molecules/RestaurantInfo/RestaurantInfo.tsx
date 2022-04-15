@@ -1,11 +1,19 @@
 import axios from "axios";
 import React, { useState } from "react";
+import { URL } from "../../../apiurl";
 import { DoneIcon } from "../../atoms/Icons.styles";
+import Modal from "../../atoms/Modal/Modal";
 import { NoContent } from "../../atoms/NoContent.styles";
-import { DeleteTaskInfo, Task } from "./RestaurantInfo.styles";
+import { Task } from "./RestaurantInfo.styles";
 
 interface Props {
-  tasks: [];
+  tasks: {
+    _id: string;
+    username: string;
+    title: string;
+    category: string;
+    description: string;
+  }[];
   restaurantID: string;
 }
 
@@ -18,36 +26,36 @@ export interface ITask {
 }
 
 const RestaurantInfo = ({ tasks, restaurantID }: Props) => {
-  const [isHelpInfoOpen, setIsHelpInfoOpen] = useState(true);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [taskID, setTaskID] = useState<any>();
 
   const handleDeleteTask = (id: any) => {
     axios
-      .delete(
-        `https://przygotowka.herokuapp.com/restaurants/${restaurantID}/delete-task/${id}`
-      )
-      .then(() => setIsHelpInfoOpen(false))
+      .delete(`${URL}/restaurants/${restaurantID}/delete-task/${id}`)
+      .then(() => setIsModalOpen(false))
       .catch((err) => console.log(err));
   };
 
   return (
     <>
-      {isHelpInfoOpen && (
-        <DeleteTaskInfo>
-          {" "}
-          Naciśnij dwa razy znak ptaszka żeby usunąć zadanie{" "}
-          <button onClick={() => setIsHelpInfoOpen(false)}>𝘅</button>{" "}
-        </DeleteTaskInfo>
+      {isModalOpen && (
+        <Modal
+          onClickNo={() => setIsModalOpen(false)}
+          onClickYes={() => handleDeleteTask(taskID)}
+        />
       )}
 
       {tasks.length ? (
-        tasks.map((task: ITask) => (
+        tasks.map((task: ITask, index) => (
           <React.Fragment key={task._id}>
             <Task className="fav-restaurants">
+              {task._id}
               <div className="username-doneIcon">
                 <h4 className="username">{task.username}</h4>
                 <button
-                  onDoubleClick={() => {
-                    handleDeleteTask(task._id);
+                  onClick={() => {
+                    setTaskID(task._id);
+                    setIsModalOpen(true);
                   }}
                 >
                   <DoneIcon />

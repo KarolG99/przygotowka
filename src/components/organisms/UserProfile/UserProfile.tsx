@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
+import { URL } from "../../../apiurl";
 import { H1 } from "../../atoms/H1.styles";
 import Navigation from "../../molecules/Navigation/Navigation";
 import UserInfo from "../../molecules/UserInfo/UserInfo";
@@ -23,7 +24,7 @@ const UserProfile = () => {
 
   useEffect(() => {
     axios
-      .get(`https://przygotowka.herokuapp.com/users/${id}`)
+      .get(`${URL}/users/${id}`)
       .then((res) => res.data)
       .then((data) => {
         setIsDataLoaded(true);
