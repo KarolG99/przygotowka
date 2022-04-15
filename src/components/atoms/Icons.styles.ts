@@ -29,6 +29,13 @@ export const AddIcon = styled(Add)`
   }
 `;
 
+export const CloseIcon = styled(Add)`
+  fill: ${({ theme }) => theme.colors.white};
+  height: 12px;
+  width: 12px;
+  transform: rotate(45deg);
+`;
+
 export const ArrowIcon = styled(Arrow)`
   height: 17px;
   width: 17px;

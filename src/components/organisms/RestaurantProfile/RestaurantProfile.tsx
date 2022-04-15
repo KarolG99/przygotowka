@@ -4,7 +4,7 @@ import { useParams } from "react-router-dom";
 import { URL } from "../../../apiurl";
 import { Button } from "../../atoms/Button.styles";
 import { H1 } from "../../atoms/H1.styles";
-import { AddIcon } from "../../atoms/Icons.styles";
+import { AddIcon, CloseIcon } from "../../atoms/Icons.styles";
 import { Id } from "../../atoms/Id.styles";
 import { Username } from "../../atoms/username.styles";
 import Alert from "../../atoms/Warning/Alert";
@@ -98,10 +98,9 @@ const RestaurantProfile = () => {
 
         if (newTask) {
           await axios
-            .post(
-              `${URL}/restaurants/${restaurantID}/create-task`,
-              { tasks: newTask }
-            )
+            .post(`${URL}/restaurants/${restaurantID}/create-task`, {
+              tasks: newTask,
+            })
             .then((res) => {
               setIsFormShowing(false);
               setFormValues(initialFormState);
@@ -112,6 +111,11 @@ const RestaurantProfile = () => {
         }
       }
     }
+  };
+
+  const CloseForm = () => {
+    setIsFormShowing(false);
+    setFormValues(initialFormState);
   };
 
   return (
@@ -170,9 +174,16 @@ const RestaurantProfile = () => {
                   value={formValues.description}
                   onChange={handleInputChange}
                 />
-                <Button className="add-task" onClick={handleAddTask}>
-                  <AddIcon className="add-task" />
-                </Button>
+
+                <div>
+                  <Button className="add-task" onClick={handleAddTask}>
+                    <AddIcon className="add-task" />
+                  </Button>
+
+                  <Button className="delete-task" onClick={CloseForm}>
+                    <CloseIcon />
+                  </Button>
+                </div>
               </React.Fragment>
             )}
 

@@ -14,7 +14,7 @@ export const Button = styled.button`
   -moz-box-shadow: 8px 8px 24px 0px rgba(255, 233, 180, 1);
   box-shadow: 8px 8px 24px 0px rgba(255, 233, 180, 1);
 
-  &.add-task {
+  &.add-task, &.delete-task {
     border-radius: 10px;
   }
 `;

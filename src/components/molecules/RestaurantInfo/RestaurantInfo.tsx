@@ -49,7 +49,6 @@ const RestaurantInfo = ({ tasks, restaurantID }: Props) => {
         tasks.map((task: ITask, index) => (
           <React.Fragment key={task._id}>
             <Task className="fav-restaurants">
-              {task._id}
               <div className="username-doneIcon">
                 <h4 className="username">{task.username}</h4>
                 <button
