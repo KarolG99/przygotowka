@@ -1,5 +1,10 @@
 import React, { useState } from "react";
-import { AddIcon, HeartIcon, LogoutIcon, UserIcon } from "../../atoms/Icons.styles";
+import {
+  AddIcon,
+  HeartIcon,
+  LogoutIcon,
+  UserIcon,
+} from "../../atoms/Icons.styles";
 import {
   Nav,
   NavButton,
@@ -19,6 +24,11 @@ const Navigation = ({ id }: Props) => {
     setIsOpen((prevState) => !prevState);
   };
 
+  const handleLogOut = () => {
+    window.localStorage.clear();
+    setIsOpen(false);
+  };
+
   return (
     <Nav isOpen={isOpen}>
       <NavButton onClick={toggleOpenMenu}>🍔</NavButton>
@@ -35,7 +45,7 @@ const Navigation = ({ id }: Props) => {
             onClick={() => setIsOpen(false)}
             to={`/${id}/my-restaurants`}
           >
-            <HeartIcon />  Moje restauracje
+            <HeartIcon /> Moje restauracje
           </StyledNavLink>
         </NavListItem>
 
@@ -49,10 +59,7 @@ const Navigation = ({ id }: Props) => {
         </NavListItem>
 
         <NavListItem>
-          <StyledNavLink
-            onClick={() => setIsOpen(false)}
-            to={`/`}
-          >
+          <StyledNavLink onClick={handleLogOut} to={`/`}>
             <LogoutIcon /> Wyloguj
           </StyledNavLink>
         </NavListItem>

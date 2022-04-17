@@ -10,6 +10,7 @@ import {
 } from "./HomePage.styles";
 
 const HomePage = () => {
+
   return (
     <Article>
       <H1>Przygotówka</H1>

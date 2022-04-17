@@ -20,6 +20,12 @@ const initialFormState: IFormValues = {
   password: "",
 };
 
+export let ACCESS_TOKEN = "";
+
+if (localStorage.getItem("secretToken")) {
+  ACCESS_TOKEN = localStorage.getItem("secretToken") as string;
+}
+
 const LogIn = () => {
   const [formValues, setFormValues] = useState(initialFormState);
   const [userInfo, setUserInfo] = useState<IUserInfo>();
@@ -27,6 +33,7 @@ const LogIn = () => {
   const [isLoading, setIsLoading] = useState(false);
   const [invalidLoginMessage, setInvalidLoginMessage] = useState("");
   const submitBtnRef = useRef<HTMLButtonElement>(null);
+  const linkRef = useRef<HTMLAnchorElement>(null);
   const { handleAddUser } = useContext(UserContext);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -45,10 +52,26 @@ const LogIn = () => {
     };
 
     await axios
-      .post(`${URL}/users/login`, userToLogin)
+      .post(`${URL}/users/login`, userToLogin, {
+        headers: {
+          "Content-type": "application/json",
+          accept: "application/json",
+        },
+      })
       .then((res) => {
-        setUserInfo(res.data);
+        setUserInfo(res.data.user);
         setIsLoading(true);
+        if (res.status === 200) return res.data;
+        else return res.statusText;
+      })
+      .then((data) => {
+        if (data.access_token) {
+          ACCESS_TOKEN = data.access_token;
+          window.localStorage.setItem(
+            "secretToken",
+            JSON.stringify(data.access_token)
+          );
+        }
       })
       .catch((err) => {
         setInvalidLoginMessage("Nieprawidłowa nazwa użytkownika lub hasło");
@@ -72,6 +95,10 @@ const LogIn = () => {
       setIsLoading(false);
       setIsLogIn(true);
       setFormValues(initialFormState);
+    }
+
+    if (linkRef.current) {
+      linkRef.current.click();
     }
   };
 
@@ -117,8 +144,8 @@ const LogIn = () => {
           <br />
           <br />
           <br />
-          {userInfo && (
-            <StyledLink to={`/${userInfo._id}/profile`}>Mój profil</StyledLink>
+          {userInfo  && (
+            <StyledLink to={`/${userInfo._id}/profile`} ref={linkRef}>Mój profil</StyledLink>
           )}
         </>
       )}

@@ -4,10 +4,13 @@ import { useParams } from "react-router-dom";
 import { URL } from "../../../apiurl";
 import { Button } from "../../atoms/Button.styles";
 import { H1 } from "../../atoms/H1.styles";
+import { StyledLink } from "../../atoms/Link.styles";
+import { UnauthorizedH2 } from "../../atoms/Unauthorized.styles";
 import Alert from "../../atoms/Warning/Alert";
 import FormField from "../../molecules/FormField/FormField";
 import Navigation from "../../molecules/Navigation/Navigation";
 import { Article } from "../HomePage/HomePage.styles";
+import { ACCESS_TOKEN } from "../LogIn/LogIn";
 
 interface IUserID {
   _id: string;
@@ -43,18 +46,27 @@ const AddRestaurant = () => {
   const [isNotAddedByIdMsg, setIsNotAddedByIdMsg] = useState("");
   const [formValues, setFormValues] = useState(initialFormState);
   const [formIdValue, setFormIdValue] = useState(initialFormIDState);
+  const [errorMsg, setErrorMsg] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${URL}/users/${id}`)
-      .then((res) => res.data)
-      .then((data) => {
-        setIsDataLoaded(true);
-        setUserID({
-          _id: data._id,
-        });
-      })
-      .catch((err) => console.log(err));
+    if (ACCESS_TOKEN) {
+      axios.defaults.headers.common[
+        "x-access-token"
+      ] = `Bearer ${ACCESS_TOKEN}`;
+
+      axios
+        .get(`${URL}/users/${id}`)
+        .then((res) => res.data)
+        .then((data) => {
+          setIsDataLoaded(true);
+          setUserID({
+            _id: data._id,
+          });
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setErrorMsg("Musisz się zalogować");
+    }
   }, [id]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -127,9 +139,16 @@ const AddRestaurant = () => {
 
   return (
     <>
-      {!isDataLoaded && (
+      {!isDataLoaded && !errorMsg && (
         <Article>
           <h2>Ładowanie...</h2>
+        </Article>
+      )}
+
+      {errorMsg && (
+        <Article>
+          <UnauthorizedH2>Musisz się zalogować</UnauthorizedH2>
+          <StyledLink to="/login">Zaloguj się</StyledLink>
         </Article>
       )}
 
@@ -138,7 +157,6 @@ const AddRestaurant = () => {
           <Navigation id={userID?._id} />
           <Article>
             <H1>Utwórz restauracje</H1>
-
 
             {invalidRestaurantMessage && (
               <Alert className="error" message={invalidRestaurantMessage} />

@@ -6,6 +6,8 @@ import { Button } from "../../atoms/Button.styles";
 import { H1 } from "../../atoms/H1.styles";
 import { AddIcon, CloseIcon } from "../../atoms/Icons.styles";
 import { Id } from "../../atoms/Id.styles";
+import { StyledLink } from "../../atoms/Link.styles";
+import { UnauthorizedH2 } from "../../atoms/Unauthorized.styles";
 import { Username } from "../../atoms/username.styles";
 import Alert from "../../atoms/Warning/Alert";
 import FormField from "../../molecules/FormField/FormField";
@@ -14,6 +16,7 @@ import RestaurantInfo, {
   ITask,
 } from "../../molecules/RestaurantInfo/RestaurantInfo";
 import { Article } from "../HomePage/HomePage.styles";
+import { ACCESS_TOKEN } from "../LogIn/LogIn";
 import { IUserInfo } from "../UserProfile/UserProfile";
 
 interface IRestaurant {
@@ -37,32 +40,49 @@ const RestaurantProfile = () => {
   const [isFormShowing, setIsFormShowing] = useState(false);
   const [warningMessage, setWarningMessage] = useState("");
   const [errorMessage, setErrorMessage] = useState("");
+  const [noTokenMsg, setNoTokenMsg] = useState("");
 
   useEffect(() => {
-    axios
-      .get(`${URL}/restaurants/${restaurantID}`)
-      .then((res) => res.data)
-      .then((data) => {
-        setIsDataLoaded(true);
-        setRestaurantInfo(data);
-      })
-      .catch((err) => console.log(err));
-  }, [restaurantID, restaurantInfo]);
+    if (ACCESS_TOKEN) {
+      axios.defaults.headers.common[
+        "x-access-token"
+      ] = `Bearer ${ACCESS_TOKEN}`;
+
+      axios
+        .get(`${URL}/restaurants/${restaurantID}`)
+        .then((res) => res.data)
+        .then((data) => {
+          setIsDataLoaded(true);
+          setRestaurantInfo(data);
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setNoTokenMsg("Musisz się zalogować");
+    }
+  }, [restaurantID]);
 
   useEffect(() => {
-    axios
-      .get(`${URL}/users/${id}`)
-      .then((res) => res.data)
-      .then((data) => {
-        setIsDataLoaded(true);
-        setUserInfo({
-          username: data.username,
-          description: data.description,
-          restaurantName: data.restaurantName,
-          _id: data._id,
-        });
-      })
-      .catch((err) => console.log(err));
+    if (ACCESS_TOKEN) {
+      axios.defaults.headers.common[
+        "x-access-token"
+      ] = `Bearer ${ACCESS_TOKEN}`;
+
+      axios
+        .get(`${URL}/users/${id}`)
+        .then((res) => res.data)
+        .then((data) => {
+          setIsDataLoaded(true);
+          setUserInfo({
+            username: data.username,
+            description: data.description,
+            restaurantName: data.restaurantName,
+            _id: data._id,
+          });
+        })
+        .catch((err) => console.log(err));
+    } else {
+      setNoTokenMsg("Musisz się zalogować");
+    }
   }, [id, restaurantID]);
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -120,9 +140,16 @@ const RestaurantProfile = () => {
 
   return (
     <>
-      {!isDataLoaded && (
+      {!isDataLoaded && !noTokenMsg && (
         <Article>
           <h2>Ładowanie...</h2>
+        </Article>
+      )}
+
+      {noTokenMsg && (
+        <Article>
+          <UnauthorizedH2>Musisz się zalogować</UnauthorizedH2>
+          <StyledLink to="/login">Zaloguj się</StyledLink>
         </Article>
       )}
 
@@ -180,7 +207,7 @@ const RestaurantProfile = () => {
                     <AddIcon className="add-task" />
                   </Button>
 
-                  <Button className="delete-task" onClick={CloseForm}>
+                  <Button className="close-form" onClick={CloseForm}>
                     <CloseIcon />
                   </Button>
                 </div>
