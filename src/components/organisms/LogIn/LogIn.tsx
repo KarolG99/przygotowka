@@ -22,8 +22,8 @@ const initialFormState: IFormValues = {
 
 export let ACCESS_TOKEN = "";
 
-if (localStorage.getItem("secretToken")) {
-  ACCESS_TOKEN = localStorage.getItem("secretToken") as string;
+if (sessionStorage.getItem("secretToken")) {
+  ACCESS_TOKEN = sessionStorage.getItem("secretToken") as string;
 }
 
 const LogIn = () => {
@@ -67,7 +67,7 @@ const LogIn = () => {
       .then((data) => {
         if (data.access_token) {
           ACCESS_TOKEN = data.access_token;
-          window.localStorage.setItem(
+          window.sessionStorage.setItem(
             "secretToken",
             JSON.stringify(data.access_token)
           );

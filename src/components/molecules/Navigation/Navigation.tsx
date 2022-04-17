@@ -25,7 +25,7 @@ const Navigation = ({ id }: Props) => {
   };
 
   const handleLogOut = () => {
-    window.localStorage.clear();
+    window.sessionStorage.clear();
     setIsOpen(false);
   };
 
