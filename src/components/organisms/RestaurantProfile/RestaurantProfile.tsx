@@ -59,7 +59,7 @@ const RestaurantProfile = () => {
     } else {
       setNoTokenMsg("Musisz się zalogować");
     }
-  }, [restaurantID]);
+  }, [restaurantID, restaurantInfo]);
 
   useEffect(() => {
     if (ACCESS_TOKEN) {
