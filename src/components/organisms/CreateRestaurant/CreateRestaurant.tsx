@@ -212,6 +212,7 @@ const AddRestaurant = () => {
               placeholder="id restauracji"
               value={formIdValue.id}
               onChange={handleInputChange}
+              data-testid="id"
             />
             <Button onClick={handleAddById}>Dodaj</Button>
           </Article>

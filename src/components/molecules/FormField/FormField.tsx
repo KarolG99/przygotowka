@@ -6,8 +6,8 @@ interface Props {
   name: string;
   placeholder: string;
   type?: string;
-  value: string;
-  onChange: React.ChangeEventHandler<HTMLInputElement>;
+  value?: string;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
 }
 
 const FormField = ({ id, name, placeholder, type = "string", value, onChange }: Props) => {

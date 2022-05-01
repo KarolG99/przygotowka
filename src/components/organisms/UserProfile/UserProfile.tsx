@@ -64,10 +64,10 @@ const UserProfile = () => {
       )}
 
       {errorMsg && (
-         <Article>
-         <UnauthorizedH2>Musisz się zalogować</UnauthorizedH2>
-         <StyledLink to="/login">Zaloguj się</StyledLink>
-       </Article>
+        <Article>
+          <UnauthorizedH2>Musisz się zalogować</UnauthorizedH2>
+          <StyledLink to="/login">Zaloguj się</StyledLink>
+        </Article>
       )}
 
       {userInfo && isDataLoaded && (

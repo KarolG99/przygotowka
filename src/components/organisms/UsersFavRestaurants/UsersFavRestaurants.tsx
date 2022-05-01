@@ -24,7 +24,6 @@ const UsersFavRestaurants = () => {
   const [isDataLoaded, setIsDataLoaded] = useState(false);
   const [favRestaurants, setFavRestaurants] = useState<IRestaurantsInfo[]>();
   const [errorMsg, setErrorMsg] = useState("");
-  // const ACCESS_TOKEN = window.localStorage.getItem("secretToken");
 
   useEffect(() => {
     if (ACCESS_TOKEN) {
