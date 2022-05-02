@@ -1,6 +1,7 @@
 import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
 import { URL } from "../../../apiurl";
+import useForm from "../../../hooks/useForm";
 import { UserContext } from "../../../Providers/UserProvider";
 import { Button } from "../../atoms/Button.styles";
 import { H1 } from "../../atoms/H1.styles";
@@ -10,7 +11,7 @@ import FormField from "../../molecules/FormField/FormField";
 import { Article } from "../HomePage/HomePage.styles";
 import { IUserInfo } from "../UserProfile/UserProfile";
 
-interface IFormValues {
+export interface IFormValues {
   username: string;
   password: string;
 }
@@ -27,7 +28,6 @@ if (sessionStorage.getItem("secretToken")) {
 }
 
 const LogIn = () => {
-  const [formValues, setFormValues] = useState(initialFormState);
   const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isLogIn, setIsLogIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -35,13 +35,9 @@ const LogIn = () => {
   const submitBtnRef = useRef<HTMLButtonElement>(null);
   const linkRef = useRef<HTMLAnchorElement>(null);
   const { handleAddUser } = useContext(UserContext);
-
-  const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setFormValues({
-      ...formValues,
-      [e.target.name]: e.target.value,
-    });
-  };
+  const { formValues, setFormValues, handleInputChange } = useForm({
+    initialFormState,
+  });
 
   const handleLogIn = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
@@ -50,6 +46,8 @@ const LogIn = () => {
       username: formValues.username,
       password: formValues.password,
     };
+
+    setIsLoading(true);
 
     await axios
       .post(`${URL}/users/login`, userToLogin, {
@@ -60,7 +58,6 @@ const LogIn = () => {
       })
       .then((res) => {
         setUserInfo(res.data.user);
-        setIsLoading(true);
         if (res.status === 200) return res.data;
         else return res.statusText;
       })
@@ -74,6 +71,7 @@ const LogIn = () => {
         }
       })
       .catch((err) => {
+        setIsLoading(false);
         setInvalidLoginMessage("Nieprawidłowa nazwa użytkownika lub hasło");
         console.log(err);
       });
@@ -144,8 +142,10 @@ const LogIn = () => {
           <br />
           <br />
           <br />
-          {userInfo  && (
-            <StyledLink to={`/${userInfo._id}/profile`} ref={linkRef}>Mój profil</StyledLink>
+          {userInfo && (
+            <StyledLink to={`/${userInfo._id}/profile`} ref={linkRef}>
+              Mój profil
+            </StyledLink>
           )}
         </>
       )}
