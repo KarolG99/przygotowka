@@ -1,6 +1,5 @@
 const router = require("express").Router();
 const {
-  GetAllUsers,
   GetSingleUser,
   AddFavRestaurant,
   CreateNewUser,
@@ -9,8 +8,6 @@ const {
   AddFavRestaurantById,
 } = require("../actions/usersActions");
 const verifyToken = require("../verification");
-
-router.route("/").get(GetAllUsers);
 
 router.get("/:id", verifyToken, GetSingleUser);
 

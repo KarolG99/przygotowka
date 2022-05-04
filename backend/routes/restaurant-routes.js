@@ -1,13 +1,10 @@
 const router = require("express").Router();
 const {
-  GetAllRestaurants,
   GetSingleRestaurant,
   CreateNewRestaurant,
   CreateNewTaskInRestaurant,
   DeleteTask,
 } = require("../actions/restaurantActions");
-
-router.route("/").get(GetAllRestaurants);
 
 router.route("/:id").get(GetSingleRestaurant);
 
