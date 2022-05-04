@@ -67,7 +67,7 @@ const UsersActions = {
             username: user.username,
           },
           "mysecretkey",
-          { expiresIn: "1h" }
+          { expiresIn: "3h" }
         );
 
         res.status(200).send({ access_token: token, user: user });
@@ -75,23 +75,6 @@ const UsersActions = {
         res.status(400).send("Złe hasło");
       }
     }
-
-    // --------dziala---------
-    // const username = req.body.username;
-    // const password = req.body.password;
-
-    // const user = await User.findOne({ username });
-
-    // if (user) {
-    //   const validPassword = await bcrypt.compare(password, user.password);
-    //   if (validPassword) {
-    //     res.status(200).json(user);
-    //   } else {
-    //     res.status(400).json({ error: "Podałeś złe hasło" });
-    //   }
-    // } else {
-    //   res.status(401).json({ error: "Ups podałeś złe dane." });
-    // }
   },
 
   AddFavRestaurant: async (req, res) => {
