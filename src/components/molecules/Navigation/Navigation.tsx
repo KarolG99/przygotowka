@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { NavigationProps } from "../../../types";
 import {
   AddIcon,
   HeartIcon,
@@ -13,11 +14,7 @@ import {
   StyledNavLink,
 } from "./Navigation.styles";
 
-interface Props {
-  id: string;
-}
-
-const Navigation = ({ id }: Props) => {
+const Navigation = ({ id }: NavigationProps) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpenMenu = () => {

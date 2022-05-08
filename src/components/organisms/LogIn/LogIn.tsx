@@ -1,22 +1,18 @@
-import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
-import { URL } from "../../../apiurl";
+import axios from "axios";
+
+import Alert from "../../atoms/Warning/Alert";
+import FormField from "../../molecules/FormField/FormField";
 import useForm from "../../../hooks/useForm";
+import { IUserInfo, LoginIFormValues } from "../../../types";
+import { URL } from "../../../apiurl";
 import { UserContext } from "../../../Providers/UserProvider";
 import { Button } from "../../atoms/Button.styles";
 import { H1 } from "../../atoms/H1.styles";
 import { StyledLink } from "../../atoms/Link.styles";
-import Alert from "../../atoms/Warning/Alert";
-import FormField from "../../molecules/FormField/FormField";
 import { Article } from "../HomePage/HomePage.styles";
-import { IUserInfo } from "../UserProfile/UserProfile";
 
-export interface IFormValues {
-  username: string;
-  password: string;
-}
-
-const initialFormState: IFormValues = {
+const initialFormState: LoginIFormValues = {
   username: "",
   password: "",
 };

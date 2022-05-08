@@ -1,22 +1,18 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
+
+import Navigation from "../../molecules/Navigation/Navigation";
+import FavRestaurant from "../../molecules/FavRestaurant/FavRestaurant";
+import { IRestaurantsInfo, IUserInfo } from "../../../types";
 import { URL } from "../../../apiurl";
 import { H1 } from "../../atoms/H1.styles";
 import { ArrowIcon, LinkWithIcon } from "../../atoms/Icons.styles";
 import { StyledLink } from "../../atoms/Link.styles";
 import { NoContent } from "../../atoms/NoContent.styles";
 import { UnauthorizedH2 } from "../../atoms/Unauthorized.styles";
-import FavRestaurant from "../../molecules/FavRestaurant/FavRestaurant";
-import Navigation from "../../molecules/Navigation/Navigation";
 import { Article } from "../HomePage/HomePage.styles";
 import { ACCESS_TOKEN } from "../LogIn/LogIn";
-import { IUserInfo } from "../UserProfile/UserProfile";
-
-export interface IRestaurantsInfo {
-  name: string;
-  _id: string;
-}
 
 const UsersFavRestaurants = () => {
   let { id } = useParams();

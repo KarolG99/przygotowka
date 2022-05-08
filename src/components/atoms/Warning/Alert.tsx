@@ -1,12 +1,8 @@
 import React from "react";
+import { AlertProps } from "../../../types";
 import { StyledAlert } from "./Alert.styles";
 
-interface Props {
-  message: string;
-  className: string;
-}
-
-const Alert = ({ message, className }: Props) => {
+const Alert = ({ message, className }: AlertProps) => {
   return <StyledAlert className={className}>{message}</StyledAlert>;
 };
 

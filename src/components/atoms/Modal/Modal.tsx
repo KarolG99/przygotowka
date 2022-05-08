@@ -1,12 +1,8 @@
 import React from "react";
+import { ModalProps } from "../../../types";
 import { StyledModal } from "./Modal.styles";
 
-interface Props {
-  onClickNo: React.MouseEventHandler<HTMLButtonElement>;
-  onClickYes: React.MouseEventHandler<HTMLButtonElement>;
-}
-
-const Modal = ({ onClickNo, onClickYes }: Props) => {
+const Modal = ({ onClickNo, onClickYes }: ModalProps) => {
   return (
     <StyledModal>
       <h2>Usunąć zadanie?</h2>

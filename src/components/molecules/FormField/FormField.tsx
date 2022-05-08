@@ -1,16 +1,15 @@
 import React from "react";
+import { FormFieldProps } from "../../../types";
 import { FormFieldWrapper } from "./FormField.styles";
 
-interface Props {
-  id: string;
-  name: string;
-  placeholder: string;
-  type?: string;
-  value?: string;
-  onChange?: React.ChangeEventHandler<HTMLInputElement>;
-}
-
-const FormField = ({ id, name, placeholder, type = "string", value, onChange }: Props) => {
+const FormField = ({
+  id,
+  name,
+  placeholder,
+  type = "string",
+  value,
+  onChange,
+}: FormFieldProps) => {
   return (
     <FormFieldWrapper>
       <input

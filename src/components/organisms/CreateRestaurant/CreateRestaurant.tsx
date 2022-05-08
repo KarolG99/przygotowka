@@ -1,38 +1,30 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
+
+import Alert from "../../atoms/Warning/Alert";
+import FormField from "../../molecules/FormField/FormField";
+import Navigation from "../../molecules/Navigation/Navigation";
+import {
+  ICreateRestaurantInitialFormIDState,
+  ICreateRestaurantInitialFormState,
+  IUserID,
+} from "../../../types";
 import { URL } from "../../../apiurl";
 import { Button } from "../../atoms/Button.styles";
 import { H1 } from "../../atoms/H1.styles";
 import { StyledLink } from "../../atoms/Link.styles";
 import { UnauthorizedH2 } from "../../atoms/Unauthorized.styles";
-import Alert from "../../atoms/Warning/Alert";
-import FormField from "../../molecules/FormField/FormField";
-import Navigation from "../../molecules/Navigation/Navigation";
 import { Article } from "../HomePage/HomePage.styles";
 import { ACCESS_TOKEN } from "../LogIn/LogIn";
 
-interface IUserID {
-  _id: string;
-}
-
-interface IInitialFormState {
-  name: string;
-  password: string;
-  repeatedPassword: string;
-}
-
-const initialFormState: IInitialFormState = {
+const initialFormState: ICreateRestaurantInitialFormState = {
   name: "",
   password: "",
   repeatedPassword: "",
 };
 
-interface IInitialFormIDState {
-  id: string;
-}
-
-const initialFormIDState: IInitialFormIDState = {
+const initialFormIDState: ICreateRestaurantInitialFormIDState = {
   id: "",
 };
 

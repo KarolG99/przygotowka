@@ -1,6 +1,12 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
+
+import Navigation from "../../molecules/Navigation/Navigation";
+import FormField from "../../molecules/FormField/FormField";
+import Alert from "../../atoms/Warning/Alert";
+import RestaurantInfo from "../../molecules/RestaurantInfo/RestaurantInfo";
+import { ITask, IUserInfo, RestaurantProfileIRestaurant } from "../../../types";
 import { URL } from "../../../apiurl";
 import { Button } from "../../atoms/Button.styles";
 import { H1 } from "../../atoms/H1.styles";
@@ -9,21 +15,8 @@ import { Id } from "../../atoms/Id.styles";
 import { StyledLink } from "../../atoms/Link.styles";
 import { UnauthorizedH2 } from "../../atoms/Unauthorized.styles";
 import { Username } from "../../atoms/username.styles";
-import Alert from "../../atoms/Warning/Alert";
-import FormField from "../../molecules/FormField/FormField";
-import Navigation from "../../molecules/Navigation/Navigation";
-import RestaurantInfo, {
-  ITask,
-} from "../../molecules/RestaurantInfo/RestaurantInfo";
 import { Article } from "../HomePage/HomePage.styles";
 import { ACCESS_TOKEN } from "../LogIn/LogIn";
-import { IUserInfo } from "../UserProfile/UserProfile";
-
-interface IRestaurant {
-  name: string;
-  _id: string;
-  tasks: [];
-}
 
 const initialFormState: ITask = {
   title: "",
@@ -33,7 +26,8 @@ const initialFormState: ITask = {
 
 const RestaurantProfile = () => {
   const { id, restaurantID } = useParams();
-  const [restaurantInfo, setRestaurantInfo] = useState<IRestaurant>();
+  const [restaurantInfo, setRestaurantInfo] =
+    useState<RestaurantProfileIRestaurant>();
   const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [formValues, setFormValues] = useState(initialFormState);
   const [isDataLoaded, setIsDataLoaded] = useState(false);

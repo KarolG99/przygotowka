@@ -1,23 +1,17 @@
-import axios from "axios";
 import React, { useContext, useRef, useState } from "react";
+import axios from "axios";
+
+import Alert from "../../atoms/Warning/Alert";
+import FormField from "../../molecules/FormField/FormField";
+import { RegisterIFormValues } from "../../../types";
 import { URL } from "../../../apiurl";
 import { UserContext } from "../../../Providers/UserProvider";
 import { Button } from "../../atoms/Button.styles";
 import { H1 } from "../../atoms/H1.styles";
 import { StyledLink } from "../../atoms/Link.styles";
-import Alert from "../../atoms/Warning/Alert";
-import FormField from "../../molecules/FormField/FormField";
 import { Article } from "../HomePage/HomePage.styles";
 
-interface IFormValues {
-  username: string;
-  password: string;
-  description: string;
-  restaurantName: string;
-  repeatedPassword: string;
-}
-
-const initialFormState: IFormValues = {
+const initialFormState: RegisterIFormValues = {
   username: "",
   password: "",
   description: "",

@@ -1,24 +1,16 @@
-import axios from "axios";
 import React, { useEffect, useState } from "react";
+import axios from "axios";
 import { useParams } from "react-router-dom";
+
+import Navigation from "../../molecules/Navigation/Navigation";
+import UserInfo from "../../molecules/UserInfo/UserInfo";
+import { IUserInfo } from "../../../types";
 import { URL } from "../../../apiurl";
 import { H1 } from "../../atoms/H1.styles";
 import { StyledLink } from "../../atoms/Link.styles";
 import { UnauthorizedH2 } from "../../atoms/Unauthorized.styles";
-import Navigation from "../../molecules/Navigation/Navigation";
-import UserInfo from "../../molecules/UserInfo/UserInfo";
 import { Article } from "../HomePage/HomePage.styles";
 import { ACCESS_TOKEN } from "../LogIn/LogIn";
-
-export interface IUserInfo {
-  username: string;
-  description: string;
-  restaurantName: string;
-  _id: string;
-  favRestaurants?: {
-    name: string;
-  }[];
-}
 
 const UserProfile = () => {
   let { id } = useParams();

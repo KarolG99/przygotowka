@@ -1,14 +1,10 @@
 import React from "react";
+import { FavRestaurantProps } from "../../../types";
 import { Id } from "../../atoms/Id.styles";
 import { RestaurantName } from "../../atoms/RestaurantName.styles";
 import { Wrapper } from "../../atoms/Wrapper.styles";
 
-interface Props {
-  name: string;
-  _id: string;
-  children: JSX.Element;
-}
-const FavRestaurant = ({ name, _id, children }: Props) => {
+const FavRestaurant = ({ name, _id, children }: FavRestaurantProps) => {
   return (
     <Wrapper className="fav-restaurants">
       <div>

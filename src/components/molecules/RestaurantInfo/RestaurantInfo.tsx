@@ -1,33 +1,16 @@
-import axios from "axios";
 import React, { useState } from "react";
+import axios from "axios";
+
+import Modal from "../../atoms/Modal/Modal";
+import { ITask, RestaurantInfoProps } from "../../../types";
 import { URL } from "../../../apiurl";
 import { DoneIcon } from "../../atoms/Icons.styles";
-import Modal from "../../atoms/Modal/Modal";
 import { NoContent } from "../../atoms/NoContent.styles";
 import { Task } from "./RestaurantInfo.styles";
 
-interface Props {
-  tasks: {
-    _id: string;
-    username: string;
-    title: string;
-    category: string;
-    description: string;
-  }[];
-  restaurantID: string;
-}
-
-export interface ITask {
-  username?: string;
-  title: string;
-  category: string;
-  description: string;
-  _id?: string;
-}
-
-const RestaurantInfo = ({ tasks, restaurantID }: Props) => {
+const RestaurantInfo = ({ tasks, restaurantID }: RestaurantInfoProps) => {
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [taskID, setTaskID] = useState<any>();
+  const [taskID, setTaskID] = useState<string>();
 
   const handleDeleteTask = (id: any) => {
     axios
