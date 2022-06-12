@@ -27,9 +27,8 @@ const UsersActions = {
     if (!(username || password)) {
       return res
         .status(400)
-        .json({ error: "Brakuje hasła lub nazwy użytkownika" });
+        .json({ error: "Uzupełnij nazwe użytkownika i hasło" });
     }
-
     const newUser = new User({
       username,
       password,
@@ -40,8 +39,10 @@ const UsersActions = {
     newUser.password = await bcrypt.hash(newUser.password, salt);
     newUser
       .save()
-      .then(() => res.status(200).json("User added!"))
-      .catch((err) => res.status(400).json(`Error: ${err}`));
+      .then(() =>
+        res.status(200).json("Zarejestrowano pomyślnie, możesz się zalogować")
+      )
+      .catch((err) => res.status(400).json(`Użytwkownik już istnieje`));
   },
 
   LoginUser: async (req, res) => {

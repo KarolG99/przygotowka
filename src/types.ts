@@ -25,6 +25,7 @@ export interface FormFieldProps {
   type?: string;
   value?: string;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  required?: boolean;
 }
 
 // Navigation

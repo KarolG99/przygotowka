@@ -9,6 +9,7 @@ const FormField = ({
   type = "string",
   value,
   onChange,
+  required,
 }: FormFieldProps) => {
   return (
     <FormFieldWrapper>
@@ -19,6 +20,7 @@ const FormField = ({
         type={type}
         value={value}
         onChange={onChange}
+        required={required}
       />
     </FormFieldWrapper>
   );

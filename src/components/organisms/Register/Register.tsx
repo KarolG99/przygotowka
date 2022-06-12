@@ -35,23 +35,8 @@ const Register = () => {
     });
   };
 
-  const CheckUsernameInDB = async () => {
-    const response = await axios.get(`${URL}/users`);
-    const userFromDB = await response.data.forEach(
-      (user: { username: string }) => {
-        if (user.username === formValues.username) {
-          setIsRegister(true);
-          return user;
-        }
-      }
-    );
-    return userFromDB;
-  };
-
   const handleSubmit = async (e: React.FormEvent<HTMLButtonElement>) => {
     e.preventDefault();
-
-    await CheckUsernameInDB();
 
     if (isRegister) {
       setIsRegister(false);
@@ -76,9 +61,11 @@ const Register = () => {
 
         await axios
           .post(`${URL}/users/create`, newUser)
-          .then((res) => console.log(res.data))
+          .then((res) => {
+            console.log(res.data)
+          })
           .catch((err) => {
-            setIsError("Coś poszło nie tak");
+            setIsError("Coś poszło nie tak, spróbuj innej nazwy użytkownika");
             console.log(err);
           });
 

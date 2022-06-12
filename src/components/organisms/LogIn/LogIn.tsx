@@ -23,7 +23,57 @@ if (sessionStorage.getItem("secretToken")) {
   ACCESS_TOKEN = sessionStorage.getItem("secretToken") as string;
 }
 
+// reducer
+// const ActionTypes = {
+//   setIsLoading: "SET_IS_LOADING",
+//   setIsLogIn: "SET_IS_LOGIN",
+//   setInvalidLoginMessage: "SET_INVALID_LOGIN_MESSAGE",
+//   SUCCESS_FETCH_DATA: "SUCCESS_FETCH_DATA",
+// };
+
+// interface State {
+//   isLoading?: boolean;
+//   isLogIn?: boolean;
+//   invalidLoginMessage?: string;
+// }
+// interface Action {
+//   type: string;
+//   setIsLoading?: boolean;
+//   setIsLogIn?: boolean;
+//   setInvalidLoginMessage?: string;
+// }
+// const initialState: State = {
+//   isLoading: false,
+//   isLogIn: false,
+//   invalidLoginMessage: "",
+// };
+
+// const reducer = (state: State, action: Action) => {
+//   switch (action.type) {
+//     case ActionTypes.setIsLoading:
+//       state.isLoading = action.setIsLoading;
+//       return state;
+//     case ActionTypes.setIsLogIn:
+//       state.isLogIn = action.setIsLogIn;
+//       return state;
+//     case ActionTypes.setInvalidLoginMessage:
+//       state.invalidLoginMessage = action.setInvalidLoginMessage;
+//       return state;
+//     case ActionTypes.SUCCESS_FETCH_DATA:
+//       return {
+//         isLoading: false,
+//         isLogIn: true,
+//       };
+//     default:
+//       return state;
+//   }
+// };
+
 const LogIn = () => {
+  // const [state, dispatch] = useReducer<React.Reducer<State | any, Action>>(
+  //   reducer,
+  //   initialState
+  // );
   const [userInfo, setUserInfo] = useState<IUserInfo>();
   const [isLogIn, setIsLogIn] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -119,6 +169,7 @@ const LogIn = () => {
             placeholder="nazwa użytkownika"
             value={formValues.username}
             onChange={handleInputChange}
+            required={true}
           />
           <FormField
             id="password"
@@ -127,6 +178,7 @@ const LogIn = () => {
             placeholder="hasło"
             value={formValues.password}
             onChange={handleInputChange}
+            required={true}
           />
           <Button ref={submitBtnRef} onClick={handleLogIn}>
             Zaloguj
