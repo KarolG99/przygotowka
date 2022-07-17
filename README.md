@@ -16,6 +16,26 @@ Conveniently share tasks, keeping them in one place and sharing them with the pe
   <li>marking tasks as completed</li>
 </ul>
 
+## Main Technologies 🕹
+<b>Frontend</b>
+<ul>
+  <li>React</li>
+  <li>TypeScript</li>
+  <li>StyledComponents</li>
+  <li>React-Router-Dom</li>
+  <li>Axios</li>
+  <li>React Context</li>
+</ul>
+
+<b>Backend</b>
+<ul>
+  <li>Express</li>
+  <li>MongoDB</li>
+  <li>BcryptJS</li>
+  <li>JSON Web Token</li>
+  <li>Mongoose</li>
+</ul>
+
 <br>
 
 # Getting Started with Create React App
