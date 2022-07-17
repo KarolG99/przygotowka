@@ -1,10 +1,20 @@
 # Przygotowka
 
-## Project overview 👀
+## Project Overview 👀
 <b>Przygotowka</b> is an application in which you create your profile as a cook. You can then create a restaurant profile, share your restaurant ID with your colleagues and share tasks on the fly.
 
 ## Project Objectives 🎯
 Conveniently share tasks, keeping them in one place and sharing them with the people we choose.
+
+## Main Features 🚀
+<ul>
+  <li>user registration</li>
+  <li>login</li>
+  <li>restaurant registration</li>
+  <li>adding restaurants to favorites</li>
+  <li>adding tasks</li>
+  <li>marking tasks as completed</li>
+</ul>
 
 <br>
 
