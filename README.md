@@ -1,4 +1,6 @@
-# Przygotowka
+# <h1 align="center">Przygotowka</h1>
+
+<br>
 
 ## Project Overview 👀
 <b>Przygotowka</b> is an application in which you create your profile as a cook. You can then create a restaurant profile, share your restaurant ID with your colleagues and share tasks on the fly.
