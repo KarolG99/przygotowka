@@ -1,5 +1,7 @@
 # <h1 align="center">Przygotowka</h1>
 
+<p align="center"><b>username</b>: testowekonto &nbsp; &nbsp; &nbsp; <b>password</b>: testowekonto</p>
+
 <br>
 
 ## Project Overview 👀
