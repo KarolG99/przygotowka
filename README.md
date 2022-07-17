@@ -3,6 +3,9 @@
 ## Project overview 👀
 <b>Przygotowka</b> is an application in which you create your profile as a cook. You can then create a restaurant profile, share your restaurant ID with your colleagues and share tasks on the fly.
 
+## Project Objectives 🎯
+Conveniently share tasks, keeping them in one place and sharing them with the people we choose.
+
 <br>
 
 # Getting Started with Create React App
