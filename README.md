@@ -1,3 +1,10 @@
+# Przygotowka
+
+## Project overview 👀
+<b>Przygotowka</b> is an application in which you create your profile as a cook. You can then create a restaurant profile, share your restaurant ID with your colleagues and share tasks on the fly.
+
+<br>
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
