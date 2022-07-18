@@ -1,4 +1,4 @@
-# <h1 align="center">Przygotowka</h1>
+# <h1 align="center">Przygotowka 👨‍💻</h1>
 
 <p align="center"><b>username</b>: testowekonto &nbsp; &nbsp; &nbsp; <b>password</b>: testowekonto</p>
 <p align="center"><a href="https://przygotowka.netlify.app/"> DEMO </a></p>
